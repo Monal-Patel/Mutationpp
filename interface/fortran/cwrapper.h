@@ -516,6 +516,33 @@ void NAME_MANGLE(convert_ye_to_xe)(
 void NAME_MANGLE(convert_ys_to_ye)(
         const double* species_y, double* elements_y);
 
+//=================================MODIFIED:MONAL===========================
+void NAME_MANGLE(enthalpy_over_rt)(double* T, double* Te, double* Tr, double* Tv, double* Tel, double *const h, 
+    double* const ht, double* const hr, double* const hv,
+    double* const hel, double* const hf);
+
+void NAME_MANGLE(evk)(double* Ttr, double* Tve, double* hv);
+
+void NAME_MANGLE(evek)(double* Ttr, double* Tve, double* hv, double* hel);
+
+void NAME_MANGLE(htrk)(double* Ttr, double* Tve, double* ht, double* hr);
+
+void NAME_MANGLE(cp_over_r)(double* T, double* Te, double* Tr, double* Tv, double* Tel, double *const cp, 
+    double* const cp_t, double* const cp_r, double* const cp_v, double* const cp_el);
+
+void NAME_MANGLE(cv_over_r)(double* T, double* Te, double* Tr, double* Tv, double* Tel, double *const cv, 
+    double* const cv_t, double* const cv_r, double* const cv_v, double* const cv_el);
+
+void NAME_MANGLE(c_ve_over_r)(double* Ttr, double* Tve, double* c_v, double* c_el);
+
+void NAME_MANGLE(cp_tr_over_r)(double* Ttr, double* Tve, double* cp_t, double* cp_r);
+
+void NAME_MANGLE(cv_tr_over_r)(double* Ttr, double* Tve, double* cv_t, double* cv_r);
+
+void NAME_MANGLE(source_energy_transfer_vt)(double *const p_source_transfer_vt);
+
+void NAME_MANGLE(ve_conductivity)(double *lambda_v,double *lambda_e);
+
 #ifdef __cplusplus
 }
 #endif

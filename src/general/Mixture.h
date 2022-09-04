@@ -80,6 +80,9 @@ public:
          state()->energyTransferSource(p_source);
     }
 
+    void energyTransferSource_vt(double* const p_source_vt) {
+         state()->energyTransferSource_vt(p_source_vt);
+    }
     /**
      * Add a named element composition to the mixture which may be retrieved
      * with getComposition().

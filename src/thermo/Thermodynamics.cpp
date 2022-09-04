@@ -467,6 +467,34 @@ void Thermodynamics::speciesCvOverR(
     
 }
 
+//Monal=========================================================================
+
+void Thermodynamics::speciesCOverR_ve(double Ttr, double Tve, double* const cp_v, double* const cp_el) const
+{
+    mp_thermodb->cp(
+        Ttr, Tve, Ttr, Tve, Tve, NULL, NULL, NULL, cp_v, cp_el);
+}
+
+
+void Thermodynamics::speciesCpOverR_tr(double Ttr, double Tve, double* const cp_t, double* const cp_r) const
+{
+    mp_thermodb->cp(
+        Ttr, Tve, Ttr, Tve, Tve, NULL, cp_t, cp_r, NULL, NULL);
+}
+
+
+
+void Thermodynamics::speciesCvOverR_tr(double Ttr, double Tve, double* const cv_t, double* const cv_r) const
+{
+    mp_thermodb->cv(
+        Ttr, Tve, Ttr, Tve, Tve, NULL, cv_t, cv_r, NULL, NULL);
+}
+
+//Monal=========================================================================
+
+
+
+
 //==============================================================================
 
 double Thermodynamics::mixtureFrozenCpMole() const
@@ -942,6 +970,31 @@ void Thermodynamics::speciesHOverRT(
         T, Te, Tr, Tv, Tel,
         h, ht, hr, hv, hel, hf);
 }
+
+//MONAL=========================================================================
+void Thermodynamics::speciesHOverRT_ve(double Ttr, double Tve, double* const hv, double* const hel) const
+{
+    mp_thermodb->enthalpy(
+        Ttr, Tve, Ttr, Tve, Tve,
+        NULL, NULL, NULL, hv, hel, NULL);
+}
+
+void Thermodynamics::speciesHOverRT_v(double Ttr, double Tve, double* const hv) const
+{
+    mp_thermodb->enthalpy(
+        Ttr, Tve, Ttr, Tve, Tve,
+        NULL, NULL, NULL, hv, NULL, NULL);
+}
+
+void Thermodynamics::speciesHOverRT_tr(double Ttr, double Tve, double* const ht, double* const hr) const
+{
+    mp_thermodb->enthalpy(
+        Ttr, Tve, Ttr, Tve, Tve,
+        NULL, ht, hr, NULL, NULL, NULL);
+}
+
+//MONAL=========================================================================
+
 
 //==============================================================================
 

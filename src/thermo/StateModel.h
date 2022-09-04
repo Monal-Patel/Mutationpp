@@ -280,7 +280,17 @@ public:
             p_omega[m_transfer_models[i].first] +=
                 m_transfer_models[i].second->source();
     }
-    
+//==========================MODIFIED:MONAL=================================
+       virtual void energyTransferSource_vt(double* const p_omega_vt)
+    {
+        // for (int i = 0; i < m_nenergy-1; ++i)
+            p_omega_vt[0] = 0.0;
+
+        // for (int i = 0; i < m_transfer_models.size(); ++i)
+            p_omega_vt[m_transfer_models[0].first] +=
+                m_transfer_models[0].second->source();
+    } 
+//==========================MODIFIED:MONAL=================================
 protected:
     /**
     * @todo add a removeTransferTerm for the case wehen the

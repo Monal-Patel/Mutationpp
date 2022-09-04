@@ -1,0 +1,16 @@
+<!-- Park Air-11 Reaction Mechanism from  Park 2001: Journal of Thermophysics and Heat Transfer Vol. 15 No. 1 - https://arc.aiaa.org/doi/pdfplus/10.2514/3.431-->
+<mechanism name="N2">
+    
+    <arrhenius_units A="mol,cm,s,K" E="kcal,mol,K" />
+    
+    <!-- 1a Park 2001-->
+    <reaction formula="N2+N2=2N+N2">
+        <arrhenius A="7.0E+21" n="-1.6" T="113200." />
+    </reaction>
+
+    <!-- 1a Park 2001-->
+    <reaction formula="N2+N=2N+N">
+        <arrhenius A="3.0E+22" n="-1.6" T="113200." />
+    </reaction>
+
+</mechanism>

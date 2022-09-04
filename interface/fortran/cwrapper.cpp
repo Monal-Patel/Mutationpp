@@ -65,8 +65,9 @@ void string_to_char(std::string string, F_STRING str, F_STRLEN length)
 
 //==============================================================================
 void NAME_MANGLE(initialize)(
-    F_STRING mixture, F_STRING state_model, F_STRLEN mixture_length,
-    F_STRLEN state_length)
+    F_STRING mixture, F_STRING state_model,F_STRING mechanism,F_STRING visc_model,
+    F_STRING thermo_model,F_STRLEN mixture_length,F_STRLEN state_length,
+    F_STRLEN mechanism_length,F_STRLEN visc_length,F_STRLEN thermo_length)
 {
 //#ifdef _GNU_SOURCE
 //    // Enable floating point exception handling
@@ -75,10 +76,26 @@ void NAME_MANGLE(initialize)(
 
     Mutation::MixtureOptions opts(char_to_string(mixture, mixture_length));
     opts.setStateModel(char_to_string(state_model, state_length));
+    opts.setMechanism(char_to_string(mechanism, mechanism_length));
+    opts.setViscosityAlgorithm(char_to_string(visc_model, visc_length));
+    opts.setThermodynamicDatabase(char_to_string(thermo_model, thermo_length));
     p_mix = new Mutation::Mixture(opts);
     p_work_species = new double [p_mix->nSpecies()];
     p_work_element = new double [p_mix->nElements()];
     //work_species = RealVector(p_mix->nSpecies());
+
+    std::cout << "====================================="         << std::endl;
+    std::cout << "MUTATION MIXTURE OPTIONS"         << std::endl;
+    std::cout << "Source: "         << opts.getSource() << std::endl;
+    std::cout << "State model: "    << opts.getStateModel() << std::endl;
+    std::cout << "Species: "         << opts.getSpeciesDescriptor() <<std::endl;
+    std::cout << "ThermoDB: "        << opts.getThermodynamicDatabase() <<std::endl;
+
+    std::cout << "Mechanism: "       << opts.getMechanism() << std::endl;
+    std::cout << "State model: "    << opts.getStateModel() << std::endl;
+    std::cout << "Viscosity model: " << opts.getViscosityAlgorithm() << std::endl;
+    std::cout << "Thermal conductivity model: "       << opts.getThermalConductivityAlgorithm() << std::endl;
+    std::cout << "====================================="         << std::endl;
 }
 
 //==============================================================================
@@ -139,12 +156,6 @@ int NAME_MANGLE(species_index)(F_STRING species, F_STRLEN species_length)
 void NAME_MANGLE(species_name)(int* index, F_STRING species, F_STRLEN species_length)
 {
     string_to_char(p_mix->speciesName(*index-1), species, species_length);
-}
-
-//==============================================================================
-bool NAME_MANGLE(has_electrons)()
-{
-    return p_mix->hasElectrons();
 }
 
 //==============================================================================
@@ -519,9 +530,68 @@ void NAME_MANGLE(convert_ys_to_ye)(
     p_mix->convert<Y_TO_YE>(species_y, elements_y);
 }
 
+//=================================MODIFIED:MONAL===========================
+void NAME_MANGLE(enthalpy_over_rt)(double* T, double* Te, double* Tr, double* Tv, double* Tel, double *const h, 
+    double* const ht, double* const hr, double* const hv,
+    double* const hel, double* const hf)
+{
+     p_mix->speciesHOverRT(*T,*Te,*Tr,*Tv,*Tel,h,ht,hr,hv,hel,hf);
+}
+
+void NAME_MANGLE(evk)(double* Ttr, double* Tve, double* hv)
+{
+     p_mix->speciesHOverRT_v(*Ttr, *Tve, hv);
+}
+
+
+// evek
+void NAME_MANGLE(evek)(double* Ttr, double* Tve, double* hv, double* hel)
+{
+     p_mix->speciesHOverRT_ve(*Ttr, *Tve, hv, hel);
+}
+
+// 
+// htrk
+void NAME_MANGLE(htrk)(double* Ttr, double* Tve, double* ht, double* hr)
+{
+     p_mix->speciesHOverRT_tr(*Ttr, *Tve, ht, hr);
+}
+
+
+
+void NAME_MANGLE(cv_over_r)(double* T, double* Te, double* Tr, double* Tv, double* Tel, double *const cv, 
+    double* const cv_t, double* const cv_r, double* const cv_v, double* const cv_el)
+{
+    p_mix->speciesCvOverR(*T,*Te,*Tr,*Tv,*Tel,cv,cv_t,cv_r,cv_v,cv_el);
+}
+
+void NAME_MANGLE(cp_over_r)(double* T, double* Te, double* Tr, double* Tv, double* Tel, double *const cp, 
+    double* const cp_t, double* const cp_r, double* const cp_v, double* const cp_el)
+{
+    p_mix->speciesCvOverR(*T,*Te,*Tr,*Tv,*Tel,cp,cp_t,cp_r,cp_v,cp_el);
+}
+
+
+void NAME_MANGLE(c_ve_over_r)(double* Ttr, double* Tve, double* c_v, double* c_el)
+{
+    p_mix->speciesCOverR_ve(*Ttr, *Tve, c_v, c_el);
+}
+
+
+void NAME_MANGLE(cp_tr_over_r)(double* Ttr, double* Tve, double* cp_t, double* cp_r)
+{
+    p_mix->speciesCpOverR_tr(*Ttr, *Tve, cp_t, cp_r);
+}
+
+// DONOT USE THIS speciesCvOverR_tr has a bug!!!!
+// void NAME_MANGLE(cv_tr_over_r)(double* Ttr, double* Tve, double* cv_t, double* cv_r)
+// {
+//     p_mix->speciesCvOverR_tr(*Ttr, *Tve, cv_t, cv_r);
+// }
+
+void NAME_MANGLE(source_energy_transfer_vt)(double *const p_source_transfer_vt)
+{
+    p_mix->energyTransferSource_vt(p_source_transfer_vt);
+}
+
 //==============================================================================
-
-
-
-
-

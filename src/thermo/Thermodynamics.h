@@ -623,6 +623,17 @@ public:
             T(), Te(), Tr(), Tv(), Tel(), p_cv, p_cvt, p_cvr, p_cvv, p_cvel);        
     }
     
+
+
+    //MONAL=========================================================================
+    void speciesCOverR_ve(double Ttr, double Tve, double* const cp_v, double* const cp_el) const;
+
+    void speciesCpOverR_tr(double Ttr, double Tve, double* const cp_t, double* const cp_r) const;
+
+    void speciesCvOverR_tr(double Ttr, double Tve, double* const cv_t, double* const cv_r) const;
+
+    //MONAL=========================================================================
+
     /**
      * Returns the frozen mixture averaged specific heat at constant pressure in
      * J/mol-K.
@@ -739,7 +750,18 @@ public:
         double* const h, double* const ht = NULL, 
         double* const hr = NULL, double* const hv = NULL,
         double* const hel = NULL, double* const hf = NULL) const;
-    
+
+    //MONAL=========================================================================
+    void speciesHOverRT_ve(double Ttr, double Tve, double* const hv, double* const hel) const;
+
+    void speciesHOverRT_tr(double Ttr, double Tve, double* const ht, double* const hr) const;
+
+    void speciesHOverRT_v(double Ttr, double Tve, double* const hv) const;
+
+    //MONAL=========================================================================
+
+
+
     /**
      * Returns the mixture averaged enthalpy in J/mol.
      */

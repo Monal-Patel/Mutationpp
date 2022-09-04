@@ -142,7 +142,7 @@ endif()
 # Fortran wrapper options
 ###############################################################################
 option (BUILD_FORTRAN_WRAPPER
-    "Generate the wrapper library for using mutation++ with Fortran" OFF)
+	"Generate the wrapper library for using mutation++ with Fortran" OFF)
 
 if (BUILD_FORTRAN_WRAPPER)
     # FFLAGS depend on the compiler
