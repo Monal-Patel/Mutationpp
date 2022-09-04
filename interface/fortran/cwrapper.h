@@ -67,8 +67,9 @@ extern "C" {
  * called once before calling any other function.
  */
 void NAME_MANGLE(initialize)(
-    F_STRING mixture, F_STRING state_model, F_STRLEN mixture_length,
-    F_STRLEN state_length);
+    F_STRING mixture, F_STRING state_model,F_STRING mechanism,F_STRING visc_model,
+    F_STRING thermo_model,F_STRLEN mixture_length,F_STRLEN state_length,
+    F_STRLEN mechanism_length,F_STRLEN visc_length,F_STRLEN thermo_length);
 
 /**
  * Deallocates all data associated with the mutation++ library.  Should be
