@@ -1,0 +1,8 @@
+<!-- Neutral 5 species air mixture -->
+<mixture mechanism="N2">
+
+    <species>
+        N N2 
+    </species>
+
+</mixture>
