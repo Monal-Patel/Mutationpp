@@ -27,7 +27,7 @@ if [ -f "$file" ]
 then
         echo "set-up variables in .. $file"
 
-				echo "MPPDIR=$PWD" >> $file
+				echo "export MPPDIR=$PWD" >> $file
         echo 'export MPP_DIRECTORY=$MPPDIR' >> $file
         echo 'export MPP_DATA_DIRECTORY=$MPPDIR/data'>> $file
         echo 'export PATH=$MPPDIR/install/bin:$PATH' >> $file
