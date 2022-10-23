@@ -23,19 +23,20 @@ else
 fi
 ############### set-up environment variables
 file=$HOME/.bashrc
-MPPDIR=$PWD
 if [ -f "$file" ]
 then
         echo "set-up variables in .. $file"
-        echo "export MPP_DIRECTORY=$MPPDIR" >> $file
-        echo "export MPP_DATA_DIRECTORY=$MPPDIR/data" >> $file
-        echo "export PATH=$MPPDIR/install/bin:$PATH" >> $file
+
+				echo "MPPDIR=$PWD" >> $file
+        echo 'export MPP_DIRECTORY=$MPPDIR' >> $file
+        echo 'export MPP_DATA_DIRECTORY=$MPPDIR/data'>> $file
+        echo 'export PATH=$MPPDIR/install/bin:$PATH' >> $file
         if [[ $platform == 'mac' ]]; then
                 echo set-up $platform
-                echo "export DYLD_LIBRARY_PATH=$MPPDIR/install/lib" >> $file
+                echo 'export DYLD_LIBRARY_PATH=$MPPDIR/install/lib' >> $file
         else
                 echo set-up $platform
-                echo "export LD_LIBRARY_PATH=$MPPDIR/install/lib:$PATH">> $file
+                echo 'export LD_LIBRARY_PATH=$MPPDIR/install/lib:$PATH'>> $file
         fi
         source ~/.bashrc
 else
