@@ -46,8 +46,8 @@ fi
 echo -e "\\033[1;34m  MUTATIONPP: ..... Environment set  \\033[0m"
 #################  install the code  (Fortran option cmake)
 mkdir -p $MPPDIR/build
-cd $MPPDIR/build
-cmake -DBUILD_FORTRAN_WRAPPER=ON -DCMAKE_CXX_COMPILER=g++ -DCMAKE_INSTALL_PREFIX:PATH=$(realpath ../install) ..
+
+cmake -DCMAKE_INSTALL_LIBDIR=lib -DBUILD_FORTRAN_WRAPPER=ON -DCMAKE_CXX_COMPILER=g++ -DCMAKE_INSTALL_PREFIX:PATH=$(realpath ../install) ..
 make -j 4 install
 ###################
 echo -e "\\033[1;32m  MUTATIONPP: Installed  Locally \\033[0m"
