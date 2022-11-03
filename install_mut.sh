@@ -26,8 +26,7 @@ file=$HOME/.bashrc
 if [ -f "$file" ]
 then
         echo "set-up variables in .. $file"
-
-				echo "export MPPDIR=$PWD" >> $file
+	echo "export MPPDIR=$PWD" >> $file
         echo 'export MPP_DIRECTORY=$MPPDIR' >> $file
         echo 'export MPP_DATA_DIRECTORY=$MPPDIR/data'>> $file
         echo 'export PATH=$MPPDIR/install/bin:$PATH' >> $file
@@ -36,7 +35,7 @@ then
                 echo 'export DYLD_LIBRARY_PATH=$MPPDIR/install/lib' >> $file
         else
                 echo set-up $platform
-                echo 'export LD_LIBRARY_PATH=$MPPDIR/install/lib:$PATH'>> $file
+                echo 'export LD_LIBRARY_PATH=$MPPDIR/install/lib:$LD_LIBRARY_PATH'>> $file
         fi
         source ~/.bashrc
 else
@@ -46,7 +45,7 @@ fi
 echo -e "\\033[1;34m  MUTATIONPP: ..... Environment set  \\033[0m"
 #################  install the code  (Fortran option cmake)
 mkdir -p $MPPDIR/build
-
+cd build
 cmake -DCMAKE_INSTALL_LIBDIR=lib -DBUILD_FORTRAN_WRAPPER=ON -DCMAKE_CXX_COMPILER=g++ -DCMAKE_INSTALL_PREFIX:PATH=$(realpath ../install) ..
 make -j 4 install
 ###################
